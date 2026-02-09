@@ -5,7 +5,7 @@ import cv2
 import mediapipe as mp
 import pyautogui
 
-
+#HETAV
 @dataclass
 class Config:
     camera_index: int = 0
