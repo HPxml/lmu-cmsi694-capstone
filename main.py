@@ -22,6 +22,7 @@ class Config:
     min_tracking_confidence: float = 0.6
 
 
+<<<<<<< Updated upstream
 mp_hands = mp.solutions.hands
 mp_drawing = mp.solutions.drawing_utils
 
@@ -43,6 +44,19 @@ def wrist_in_roi(hand_landmarks, w: int, h: int, cfg: Config) -> bool:
     x, y = int(wrist.x * w), int(wrist.y * h)
     return cfg.roi_x1 <= x <= cfg.roi_x2 and cfg.roi_y1 <= y <= cfg.roi_y2
 
+=======
+def print_startup_checklist():
+    print("="*60)
+    print("      GESTURE YOUTUBE CONTROL - SPRINT 2 DEMO      ")
+    print("="*60)
+    print("CHECKLIST FOR RELIABILITY:")
+    print("1. LIGHTING: Ensure you are well-lit (face light source).")
+    print("2. BACKGROUND: Avoid busy backgrounds or backlighting.")
+    print("3. BROWSER: Open YouTube in Chrome/Edge.")
+    print("4. FOCUS: Click inside the video player to ensure it has focus.")
+    print("5. POSITION: Place this window so it doesn't cover the video.")
+  
+>>>>>>> Stashed changes
 
 def is_open_palm(hand_landmarks) -> bool:
     lm = hand_landmarks.landmark
@@ -85,9 +99,47 @@ def main():
                 break
 
             frame = cv2.flip(frame, 1)
+<<<<<<< Updated upstream
             h, w = frame.shape[:2]
 
             draw_roi(frame, cfg)
+=======
+            h, w, _ = frame.shape
+            
+            # Draw ROI
+            cv2.rectangle(frame, (cfg.roi_x1, cfg.roi_y1), (cfg.roi_x2, cfg.roi_y2), (255, 255, 255), 2)
+            put_text_hud(frame, "ROI", cfg.roi_x1, cfg.roi_y1 - 10, scale=0.5, thickness=1)
+def is_open_palm(hand_landmarks) -> bool:
+    """Returns True if at least 4 fingers are extended."""
+    lm = hand_landmarks.landmark
+    mp_hands = mp.solutions.hands
+    finger_tips_pips = [
+        (mp_hands.HandLandmark.INDEX_FINGER_TIP, mp_hands.HandLandmark.INDEX_FINGER_PIP),
+        (mp_hands.HandLandmark.MIDDLE_FINGER_TIP, mp_hands.HandLandmark.MIDDLE_FINGER_PIP),
+        (mp_hands.HandLandmark.RING_FINGER_TIP, mp_hands.HandLandmark.RING_FINGER_PIP),
+        (mp_hands.HandLandmark.PINKY_TIP, mp_hands.HandLandmark.PINKY_PIP),
+    ]
+    
+    extended_count = 0
+    for tip, pip in finger_tips_pips:
+        if lm[tip].y < lm[pip].y: # Hand is upright, tip above pip
+            extended_count += 1
+            
+    return extended_count >= 3
+
+
+def main():
+    print_startup_checklist()
+    cfg = Config()
+    
+    mp_hands = mp.solutions.hands
+    mp_drawing = mp.solutions.drawing_utils
+
+    cap = cv2.VideoCapture(cfg.camera_index)
+    if not cap.isOpened():
+        print("ERROR: Could not open webcam.")
+        return
+>>>>>>> Stashed changes
 
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             res = hands.process(rgb)
