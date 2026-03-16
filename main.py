@@ -49,6 +49,65 @@ def print_startup_checklist():
     print("Starting camera...")
 
 
+def put_text_hud(frame, text, x, y, color=(255, 255, 255), scale=0.7, thickness=2):
+    """Draws text with a black outline for visibility."""
+    cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, scale, (0, 0, 0), thickness + 2, cv2.LINE_AA)
+    cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, scale, color, thickness, cv2.LINE_AA)
+
+
+def focus_browser():
+    """Attempt to focus a browser window if pygetwindow is available."""
+    if not HAS_PYGETWINDOW:
+        return False
+    
+    keywords = ["YouTube", "Chrome", "Edge", "Firefox"]
+    try:
+        active = gw.getActiveWindow()
+        if active and any(k.lower() in active.title.lower() for k in keywords):
+            return True
+            
+        all_titles = gw.getAllTitles()
+        for t in all_titles:
+            if any(k.lower() in t.lower() for k in keywords):
+                win = gw.getWindowsWithTitle(t)[0]
+                if not win.isActive:
+                    win.activate()
+                return True
+    except Exception:
+        pass
+    return False
+
+
+def is_open_palm(hand_landmarks) -> bool:
+    """Returns True if at least 4 fingers are extended."""
+    lm = hand_landmarks.landmark
+    mp_hands = mp.solutions.hands
+    finger_tips_pips = [
+        (mp_hands.HandLandmark.INDEX_FINGER_TIP, mp_hands.HandLandmark.INDEX_FINGER_PIP),
+        (mp_hands.HandLandmark.MIDDLE_FINGER_TIP, mp_hands.HandLandmark.MIDDLE_FINGER_PIP),
+        (mp_hands.HandLandmark.RING_FINGER_TIP, mp_hands.HandLandmark.RING_FINGER_PIP),
+        (mp_hands.HandLandmark.PINKY_TIP, mp_hands.HandLandmark.PINKY_PIP),
+    ]
+    
+    extended_count = 0
+    for tip, pip in finger_tips_pips:
+        if lm[tip].y < lm[pip].y: # Hand is upright, tip above pip
+            extended_count += 1
+            
+    return extended_count >= 3
+
+
+def main():
+    print_startup_checklist()
+    cfg = Config()
+    
+    mp_hands = mp.solutions.hands
+    mp_drawing = mp.solutions.drawing_utils
+
+    cap = cv2.VideoCapture(cfg.camera_index)
+    if not cap.isOpened():
+        print("ERROR: Could not open webcam.")
+        return
 
     # State Variables
     last_trigger_time = 0.0
