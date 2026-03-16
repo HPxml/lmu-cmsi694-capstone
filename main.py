@@ -135,6 +135,10 @@ def is_open_palm(hand_landmarks) -> bool:
     dist_tip = ((thumb_tip.x - pinky_mcp.x)**2 + (thumb_tip.y - pinky_mcp.y)**2)**0.5
     dist_ip = ((thumb_ip.x - pinky_mcp.x)**2 + (thumb_ip.y - pinky_mcp.y)**2)**0.5
     
+    if dist_tip > dist_ip:
+        thumb_extended = True
+            
+    return extended_count == 4 and thumb_extended
 
 
 def main():
