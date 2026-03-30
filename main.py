@@ -24,6 +24,7 @@ try:
 except ImportError:
     HAS_PYGETWINDOW = False
 
+<<<<<<< Updated upstream
 def log_event(event_type, detail):
     pass # Deprecated, use log_state_event inside main()
 
@@ -49,6 +50,27 @@ def log_event(event_type, detail):
                 "roi_y2": self.roi_y2
             }, f)
         print("ROI saved to config/roi.json")
+=======
+@dataclass
+class Config:
+    camera_index: int = 0
+    
+    # ROI (interaction zone) in pixels
+    roi_x1: int = 160
+    roi_y1: int = 80
+    roi_x2: int = 480
+    roi_y2: int = 400
+    
+    # Reliability Settings
+    cooldown_sec: float = 1.5           # Time between triggers
+    persistence_threshold: int = 10     # Frames to hold gesture (~0.3s @ 30fps)
+    absence_timeout_sec: float = 3.0    # Auto-pause absence timeout
+    sleepiness_timeout_sec: float = 3.0 # Auto-pause sleepiness timeout
+    ear_threshold: float = 0.20         # Eye Aspect Ratio threshold (below this is 'closed')
+    
+    min_detection_confidence: float = 0.6
+    min_tracking_confidence: float = 0.6
+>>>>>>> Stashed changes
 
 
 # Face Mesh Indices for Eyes (P1..P6)
@@ -65,7 +87,10 @@ def calculate_ear(face_landmarks, eye_indices, w, h):
         
     def dist(p1, p2):
         return math.hypot(p1[0] - p2[0], p1[1] - p2[1])
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
     # Vertical distances
     v1 = dist(pts[1], pts[5])
     v2 = dist(pts[2], pts[4])
