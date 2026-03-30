@@ -28,7 +28,25 @@ except ImportError:
 def log_event(event_type, detail):
     pass # Deprecated, use log_state_event inside main()
 
-
+@dataclass
+class Config:
+    camera_index: int = 0
+    
+    # ROI (interaction zone) in pixels
+    roi_x1: int = 160
+    roi_y1: int = 80
+    roi_x2: int = 480
+    roi_y2: int = 400
+    
+    # Reliability Settings
+    cooldown_sec: float = 1.5           # Time between triggers
+    persistence_threshold: int = 10     # Frames to hold gesture (~0.3s @ 30fps)
+    absence_timeout_sec: float = 3.0    # Auto-pause absence timeout
+    sleepiness_timeout_sec: float = 3.0 # Auto-pause sleepiness timeout
+    ear_threshold: float = 0.20         # Eye Aspect Ratio threshold (below this is 'closed')
+    
+    min_detection_confidence: float = 0.6
+    min_tracking_confidence: float = 0.6
 
     def load_roi(self):
         path = "config/roi.json"
