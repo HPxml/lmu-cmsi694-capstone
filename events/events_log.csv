@@ -1,0 +1,77 @@
+timestamp,event_type,label_mode,gesture_detected,action_sent,lock_state,roi_coords,fps
+2026-03-28T23:29:27.122872,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-03-28T23:31:38.671948,ROI_ADJUST,open_palm,No hand detected | N/A,None,True,"(160,90,480,410)",15
+2026-03-28T23:31:40.389749,ROI_ADJUST,open_palm,No hand detected | N/A,None,True,"(160,100,480,420)",13
+2026-03-28T23:31:42.622278,LOCK_CHANGE,open_palm,No hand detected | N/A,None,False,"(160,100,480,420)",15
+2026-03-28T23:31:45.422050,ACTION_SENT,open_palm,Open Palm (10/10) | N/A,PLAY/PAUSE SENT ('k'),False,"(160,100,480,420)",21
+2026-03-28T23:31:49.223106,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,100,480,420)",13
+2026-03-28T23:32:06.422749,ACTION_SENT,open_palm,Two Fingers (10/10) | N/A,SKIP FWD 10s ('l'),False,"(160,100,480,420)",18
+2026-03-28T23:32:12.005153,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,100,480,420)",15
+2026-03-28T23:32:13.115954,ACTION_SENT,open_palm,Two Fingers (10/10) | N/A,SKIP FWD 10s ('l'),False,"(160,100,480,420)",17
+2026-03-28T23:32:14.617848,ACTION_SENT,open_palm,Two Fingers (10/10) | N/A,SKIP FWD 10s ('l'),False,"(160,100,480,420)",18
+2026-03-28T23:32:18.320464,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,100,480,420)",13
+2026-03-28T23:32:22.868991,ACTION_SENT,open_palm,Two Fingers (10/10) | N/A,SKIP FWD 10s ('l'),False,"(160,100,480,420)",19
+2026-03-28T23:32:24.426805,ACTION_SENT,open_palm,Two Fingers (10/10) | N/A,SKIP FWD 10s ('l'),False,"(160,100,480,420)",16
+2026-03-28T23:32:25.967942,ACTION_SENT,open_palm,Two Fingers (10/10) | N/A,SKIP FWD 10s ('l'),False,"(160,100,480,420)",14
+2026-03-28T23:32:30.008663,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,100,480,420)",14
+2026-03-28T23:32:38.725634,LOCK_CHANGE,open_palm,No hand detected | N/A,None,True,"(160,100,480,420)",15
+2026-03-28T23:47:46.590496,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-03-28T23:48:07.156999,LOCK_CHANGE,open_palm,No hand detected | N/A,None,False,"(160,80,480,400)",14
+2026-03-28T23:48:10.092775,ACTION_SENT,open_palm,Two Fingers (10/10) | 93.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",15
+2026-03-28T23:48:13.542423,ACTION_SENT,open_palm,Open Palm (10/10) | 70.0% (Unknown),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",10
+2026-03-28T23:48:17.729179,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",10
+2026-03-28T23:48:27.237578,ACTION_SENT,open_palm,Two Fingers (10/10) | 92.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",9
+2026-03-28T23:48:28.769034,ACTION_SENT,open_palm,Two Fingers (10/10) | 100.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",11
+2026-03-28T23:48:30.330843,ACTION_SENT,open_palm,Two Fingers (10/10) | 100.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:48:35.561663,ACTION_SENT,open_palm,Two Fingers (10/10) | 90.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",11
+2026-03-28T23:48:46.350455,ACTION_SENT,open_palm,Two Fingers (10/10) | 86.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",11
+2026-03-28T23:48:49.099678,ACTION_SENT,open_palm,Two Fingers (10/10) | 96.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",14
+2026-03-28T23:48:50.606959,ACTION_SENT,open_palm,Two Fingers (10/10) | 97.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:48:52.111356,ACTION_SENT,open_palm,Two Fingers (10/10) | 99.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:48:53.630961,ACTION_SENT,open_palm,Two Fingers (10/10) | 100.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:48:55.158749,ACTION_SENT,open_palm,Two Fingers (10/10) | 100.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",14
+2026-03-28T23:48:57.198370,ACTION_SENT,open_palm,Two Fingers (10/10) | 91.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:49:01.184696,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",11
+2026-03-28T23:57:27.062536,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-03-28T23:58:49.118757,LOCK_CHANGE,open_palm,No hand detected | N/A,None,False,"(160,80,480,400)",12
+2026-03-28T23:58:51.122071,ACTION_SENT,open_palm,Two Fingers (10/10) | 91.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:58:54.931589,ACTION_SENT,open_palm,Two Fingers (10/10) | 87.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:58:56.733366,ACTION_SENT,open_palm,Two Fingers (10/10) | 99.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",11
+2026-03-28T23:59:01.080582,ACTION_SENT,open_palm,Two Fingers (10/10) | 98.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",14
+2026-03-28T23:59:08.153729,ACTION_SENT,open_palm,Open Palm (10/10) | 71.0% (Unknown),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",14
+2026-03-28T23:59:12.381176,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",14
+2026-03-28T23:59:13.548538,ACTION_SENT,open_palm,Two Fingers (10/10) | 98.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:59:17.359977,ACTION_SENT,open_palm,Two Fingers (10/10) | 99.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",14
+2026-03-28T23:59:21.202794,ACTION_SENT,open_palm,Two Fingers (10/10) | 97.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-28T23:59:25.356818,ACTION_SENT,open_palm,Two Fingers (10/10) | 97.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",12
+2026-03-28T23:59:29.708754,ACTION_SENT,open_palm,Two Fingers (10/10) | 96.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",11
+2026-03-28T23:59:33.664336,ACTION_SENT,open_palm,Two Fingers (10/10) | 94.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",14
+2026-03-28T23:59:43.455028,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",11
+2026-03-29T00:02:28.727268,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-03-29T00:03:52.911792,LOCK_CHANGE,open_palm,No hand detected | N/A,None,False,"(160,80,480,400)",14
+2026-03-29T00:03:56.083565,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",15
+2026-03-29T00:08:18.353784,ACTION_SENT,open_palm,Open Palm (10/10) | 81.0% (two_fingers),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",12
+2026-03-29T00:08:40.545609,ACTION_SENT,open_palm,Open Palm (10/10) | 90.0% (two_fingers),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",13
+2026-03-29T00:08:44.124159,ACTION_SENT,open_palm,Two Fingers (10/10) | 89.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",13
+2026-03-29T00:08:57.198470,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",13
+2026-04-07T16:03:56.666827,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-04-07T19:02:11.496566,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-04-07T19:03:45.005892,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-04-07T19:03:53.522926,LOCK_CHANGE,open_palm,No hand detected | N/A,None,False,"(160,80,480,400)",22
+2026-04-07T19:03:56.711054,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",16
+2026-04-07T19:04:01.585647,ACTION_SENT,open_palm,Open Palm (10/10) | 76.0% (two_fingers),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",15
+2026-04-07T19:04:03.137995,ACTION_SENT,open_palm,Open Palm (10/10) | 72.0% (Unknown),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",13
+2026-04-07T19:04:09.683898,ACTION_SENT,open_palm,Two Fingers (10/10) | 100.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",15
+2026-04-07T19:04:11.251053,ACTION_SENT,open_palm,Two Fingers (10/10) | 100.0% (two_fingers),SKIP FWD 10s ('l'),False,"(160,80,480,400)",10
+2026-04-07T19:04:14.857166,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",15
+2026-04-07T19:04:21.760675,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",17
+2026-04-07T19:04:29.581008,ACTION_SENT,open_palm,Open Palm (10/10) | 65.0% (Unknown),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",22
+2026-04-07T19:04:40.305158,ACTION_SENT,open_palm,Open Palm (10/10) | 73.0% (Unknown),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",21
+2026-04-07T19:04:43.253600,ACTION_SENT,open_palm,Open Palm (10/10) | 75.0% (two_fingers),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",18
+2026-04-07T19:04:50.043157,ACTION_SENT,open_palm,Open Palm (10/10) | 77.0% (fist),PLAY/PAUSE SENT ('k'),False,"(160,80,480,400)",21
+2026-04-07T19:04:55.074506,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",20
+2026-04-07T19:05:15.948920,ACTION_SENT,open_palm,No hand detected | N/A,AUTO-PAUSE SENT,False,"(160,80,480,400)",21
+2026-04-09T15:07:09.743223,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-04-09T15:08:04.473666,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-04-09T15:13:43.816835,STARTUP,open_palm,None | N/A,None,True,"(160,80,480,400)",0
+2026-04-09T15:50:16.777663,STARTUP,None | N/A,None,True,0
