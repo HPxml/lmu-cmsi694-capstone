@@ -1,18 +1,19 @@
 import time
 import sys
 import math
+import os
+import json
+import csv
+from datetime import datetime
 from dataclasses import dataclass
 import cv2
 import mediapipe as mp
 import pyautogui
-<<<<<<< Updated upstream
-=======
 import pickle
 
 # Create necessary directories
 os.makedirs("config", exist_ok=True)
 os.makedirs("events", exist_ok=True)
->>>>>>> Stashed changes
 
 try:
     import pygetwindow as gw
@@ -20,10 +21,6 @@ try:
 except ImportError:
     HAS_PYGETWINDOW = False
 
-<<<<<<< Updated upstream
-
-
-=======
 @dataclass
 class Config:
     camera_index: int = 0
@@ -50,43 +47,10 @@ class Config:
                 self.roi_y1 = data.get("roi_y1", self.roi_y1)
                 self.roi_x2 = data.get("roi_x2", self.roi_x2)
                 self.roi_y2 = data.get("roi_y2", self.roi_y2)
->>>>>>> Stashed changes
 
 LEFT_EYE_INDICES = [33, 160, 158, 133, 153, 144]
 RIGHT_EYE_INDICES = [362, 385, 387, 263, 373, 380]
 
-<<<<<<< Updated upstream
-
-
-
-
-def print_startup_checklist():
-    print("="*60)
-    print("      GESTURE YOUTUBE CONTROL - SPRINT 3 DEMO      ")
-    print("="*60)
-    print("CHECKLIST FOR RELIABILITY:")
-    print("1. LIGHTING: Ensure you are well-lit (face light source).")
-    print("2. BACKGROUND: Avoid busy backgrounds or backlighting.")
-    print("3. BROWSER: Open YouTube in Chrome/Edge.")
-    print("4. FOCUS: Click inside the video player to ensure it has focus.")
-    print("5. POSITION: Place this window so it doesn't cover the video.")
-    print("6. AUTO-PAUSE: Video will pause if no hand is seen OR eyes are closed for 3 seconds.")
-    print("7. LOCK SAFETY: Lock the system ([S]) to prevent accidental triggers/pauses.")
-    print("-" * 60)
-    print("CONTROLS:")
-    print("  [S] Toggle LOCK/UNLOCK (prevent accidental triggers)")
-    print("  [Q] Quit Application")
-    print("="*60)
-    print("Starting camera...")
-
-
-def put_text_hud(frame, text, x, y, color=(255, 255, 255), scale=0.7, thickness=2):
-    """Draws text with a black outline for visibility."""
-    cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, scale, (0, 0, 0), thickness + 2, cv2.LINE_AA)
-    cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, scale, color, thickness, cv2.LINE_AA)
-
-
-=======
 def calculate_ear(face_landmarks, eye_indices, w, h):
     pts = []
     for idx in eye_indices:
@@ -102,7 +66,6 @@ def calculate_ear(face_landmarks, eye_indices, w, h):
     
     return (v1 + v2) / (2.0 * h1) if h1 > 0 else 0.0
 
->>>>>>> Stashed changes
 def focus_browser():
     if not HAS_PYGETWINDOW:
         return False
@@ -122,41 +85,6 @@ def focus_browser():
         pass
     return False
 
-<<<<<<< Updated upstream
-
-def is_open_palm(hand_landmarks) -> bool:
-    """Returns True if all 5 fingers (including thumb) are fully extended."""
-    lm = hand_landmarks.landmark
-    mp_hands = mp.solutions.hands
-    
-    # Check the 4 main fingers (Index, Middle, Ring, Pinky) are extended UP
-    finger_tips_pips = [
-        (mp_hands.HandLandmark.INDEX_FINGER_TIP, mp_hands.HandLandmark.INDEX_FINGER_PIP),
-        (mp_hands.HandLandmark.MIDDLE_FINGER_TIP, mp_hands.HandLandmark.MIDDLE_FINGER_PIP),
-        (mp_hands.HandLandmark.RING_FINGER_TIP, mp_hands.HandLandmark.RING_FINGER_PIP),
-        (mp_hands.HandLandmark.PINKY_TIP, mp_hands.HandLandmark.PINKY_PIP),
-    ]
-    
-    extended_count = 0
-    for tip, pip in finger_tips_pips:
-        if lm[tip].y < lm[pip].y: # Hand is upright, tip is above pip
-            extended_count += 1
-            
-    # Check if thumb is extended OUTWARD (using X coordinates relative to PIP)
-    thumb_tip = lm[mp_hands.HandLandmark.THUMB_TIP]
-    thumb_ip = lm[mp_hands.HandLandmark.THUMB_IP] 
-    pinky_mcp = lm[mp_hands.HandLandmark.PINKY_MCP]
-    
-    thumb_extended = False
-    dist_tip = ((thumb_tip.x - pinky_mcp.x)**2 + (thumb_tip.y - pinky_mcp.y)**2)**0.5
-    dist_ip = ((thumb_ip.x - pinky_mcp.x)**2 + (thumb_ip.y - pinky_mcp.y)**2)**0.5
-    
-    if dist_tip > dist_ip:
-        thumb_extended = True
-            
-    return extended_count == 4 and thumb_extended
-
-=======
 def get_folded_states(hand_landmarks):
     lm = hand_landmarks.landmark
     mp_hands = mp.solutions.hands
@@ -642,7 +570,6 @@ def main():
         cap.release()
     cv2.destroyAllWindows()
     print("Demo Closed.")
->>>>>>> Stashed changes
 
 if __name__ == "__main__":
     main()
