@@ -24,6 +24,17 @@ def main():
     feature_cols = [c for c in df.columns if c not in ["timestamp", "label"]]
     df[feature_cols] = df[feature_cols].apply(pd.to_numeric, errors="coerce").fillna(0)
 
+    # Normalize coordinates relative to the wrist (x0, y0, z0) so ML focuses on geometric shape 
+    # instead of physical position on the screen
+    for col in range(1, 21):
+        df[f'x{col}'] = df[f'x{col}'] - df['x0']
+        df[f'y{col}'] = df[f'y{col}'] - df['y0']
+        df[f'z{col}'] = df[f'z{col}'] - df['z0']
+    
+    df['x0'] = 0.0
+    df['y0'] = 0.0
+    df['z0'] = 0.0
+
     X = df[feature_cols].values
     y = df["label"].astype(str).values
 
@@ -55,7 +66,7 @@ def main():
     with open(model_path, "wb") as f:
         pickle.dump({"model": model, "label_encoder": enc}, f)
 
-    print(f"\n✅ Saved: {model_path}")
+    print(f"\n[SUCCESS] Saved: {model_path}")
 
 if __name__ == "__main__":
     main()
