@@ -541,7 +541,7 @@ def main():
                 action_msg = "None"
 
             # --- CLEAN HUD RENDERING ---
-            put_text_hud(frame, "GESTURE CONTROL SYSTEM (DEMO)", 20, 25, scale=0.6, color=(0, 255, 255))
+            put_text_hud(frame, "YOUTUBE GESTURE CONTROL - DEMO MODE", 20, 25, scale=0.6, color=(0, 255, 255))
             put_text_hud(frame, f"STATUS: {status_msg}", 20, 55, scale=0.8, color=(0, 255, 0) if not is_locked else (0, 0, 255))
             if action_msg != "None":
                 put_text_hud(frame, f"ACTION: {action_msg}", 20, 95, scale=0.9, color=(255, 255, 0), thickness=3)
@@ -595,3 +595,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
