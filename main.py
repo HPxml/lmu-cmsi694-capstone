@@ -31,12 +31,12 @@ class Config:
     
     cooldown_sec: float = 1.5           
     persistence_threshold: int = 6      # For demo responsiveness
-    absence_timeout_sec: float = 5.0    
     sleepiness_timeout_sec: float = 3.0 
-    ear_threshold: float = 0.20         
+    ear_threshold: float = 0.23         
     
-    min_detection_confidence: float = 0.6
-    min_tracking_confidence: float = 0.6
+    min_detection_confidence: float = 0.75
+    min_tracking_confidence: float = 0.75
+    actions: dict = None
 
     def load_roi(self):
         path = "config/roi.json"
@@ -47,6 +47,20 @@ class Config:
                 self.roi_y1 = data.get("roi_y1", self.roi_y1)
                 self.roi_x2 = data.get("roi_x2", self.roi_x2)
                 self.roi_y2 = data.get("roi_y2", self.roi_y2)
+
+    def load_actions(self):
+        path = "config/actions.json"
+        if os.path.exists(path):
+            with open(path, "r") as f:
+                self.actions = json.load(f)
+        else:
+            self.actions = {
+                "open_palm": "k",
+                "two_fingers": "l",
+                "fist": "j",
+                "thumbs_up": "up",
+                "thumbs_down": "down"
+            }
 
 LEFT_EYE_INDICES = [33, 160, 158, 133, 153, 144]
 RIGHT_EYE_INDICES = [362, 385, 387, 263, 373, 380]
@@ -246,7 +260,7 @@ def decide_demo_priority_gesture(hand_landmarks, ml_model, label_encoder, rel_lm
             if len(sorted_probs) >= 2 and (sorted_probs[0] - sorted_probs[1]) <= 0.08:
                 return "Unknown", f"ML Ambiguous: {max_prob*100:.1f}%"
 
-            if max_prob >= 0.70 and predicted_label not in ["open_palm", "two_fingers"]:
+            if max_prob >= 0.75 and predicted_label not in ["open_palm", "two_fingers"]:
                 return predicted_label, f"ML Conf: {max_prob*100:.1f}% ({predicted_label})"
 
         except Exception:
@@ -277,6 +291,7 @@ GESTURE_COLORS = {
 def main():
     cfg = Config()
     cfg.load_roi()
+    cfg.load_actions()
     
     ml_model = None
     label_encoder = None
@@ -299,6 +314,10 @@ def main():
     if not cap.isOpened():
         print("ERROR: Could not open webcam.")
         return
+        
+    cv2.namedWindow('Gesture Control Demo (Final)', cv2.WINDOW_NORMAL)
+    cv2.resizeWindow('Gesture Control Demo (Final)', 420, 320)
+    cv2.moveWindow('Gesture Control Demo (Final)', 20, 20)
 
     last_trigger_time = 0.0
     gesture_counters = {
@@ -310,7 +329,6 @@ def main():
     }
     is_locked = True
     
-    last_hand_seen_time = time.time()
     last_eyes_open_time = time.time() 
     
     auto_pause_fired = False
@@ -360,7 +378,6 @@ def main():
             
             if results_hands.multi_hand_landmarks:
                 hand_detected = True
-                last_hand_seen_time = current_time
                 
                 first_hand_landmarks = results_hands.multi_hand_landmarks[0]
                 mp_drawing.draw_landmarks(frame, first_hand_landmarks, mp_hands.HAND_CONNECTIONS)
@@ -415,7 +432,6 @@ def main():
                 auto_pause_fired = False
 
             time_since_trigger = current_time - last_trigger_time
-            time_since_hand = current_time - last_hand_seen_time
             time_since_eyes_open = current_time - last_eyes_open_time
             
             if hand_detected and final_label_frame != "Unknown":
@@ -474,21 +490,20 @@ def main():
                 else:
                     focus_browser() 
                     
-                    if max_counter_gesture == "open_palm":
-                        pyautogui.press("k")
-                        action_msg = "PLAY/PAUSE ('k')"
-                    elif max_counter_gesture == "two_fingers":
-                        pyautogui.press("l")
-                        action_msg = "SKIP FWD ('l')"
-                    elif max_counter_gesture == "fist":
-                        pyautogui.press("j")
-                        action_msg = "SKIP BACK ('j')"
-                    elif max_counter_gesture == "thumbs_up":
-                        pyautogui.press("up")
-                        action_msg = "VOL UP ('up')"
-                    elif max_counter_gesture == "thumbs_down":
-                        pyautogui.press("down")
-                        action_msg = "VOL DOWN ('down')"
+                    action_key = cfg.actions.get(max_counter_gesture)
+                    if action_key:
+                        pyautogui.press(action_key)
+                        
+                        # Friendly display names mapping
+                        display_name_map = {
+                            "open_palm": "PLAY/PAUSE",
+                            "two_fingers": "SKIP FWD",
+                            "fist": "SKIP BACK", 
+                            "thumbs_up": "VOL UP",
+                            "thumbs_down": "VOL DOWN"
+                        }
+                        nice_name = display_name_map.get(max_counter_gesture, max_counter_gesture.upper())
+                        action_msg = f"{nice_name} ('{action_key}')"
                     
                     status_msg = "TRIGGERED"
                     last_trigger_time = current_time
@@ -526,29 +541,37 @@ def main():
                 action_msg = "None"
 
             # --- CLEAN HUD RENDERING ---
-            put_text_hud(frame, f"STATUS: {status_msg}", 20, 40, scale=0.8, color=(0, 255, 0) if not is_locked else (0, 0, 255))
+            put_text_hud(frame, "GESTURE CONTROL SYSTEM (DEMO)", 20, 25, scale=0.6, color=(0, 255, 255))
+            put_text_hud(frame, f"STATUS: {status_msg}", 20, 55, scale=0.8, color=(0, 255, 0) if not is_locked else (0, 0, 255))
             if action_msg != "None":
-                put_text_hud(frame, f"ACTION: {action_msg}", 20, 80, scale=0.9, color=(255, 255, 0), thickness=3)
+                put_text_hud(frame, f"ACTION: {action_msg}", 20, 95, scale=0.9, color=(255, 255, 0), thickness=3)
 
             draw_color = GESTURE_COLORS.get(max_counter_gesture, (200, 200, 200)) if progress_val > 0 else (200, 200, 200)
             if "Unknown" in gesture_msg or "No" in gesture_msg or "Move" in gesture_msg:
                 draw_color = GESTURE_COLORS["Unknown"]
                 
-            put_text_hud(frame, f"PRED: {final_label_frame.upper()}", 20, h - 110, scale=0.7, color=(220, 220, 220))
+            put_text_hud(frame, f"PRED: {final_label_frame.upper()} [{current_pred_confidence}]", 20, h - 110, scale=0.6, color=(220, 220, 220))
             put_text_hud(frame, f"GESTURE: {gesture_msg.upper()}", 20, h - 80, scale=1.1, color=draw_color, thickness=3)
-            
-            if current_pred_confidence != "N/A":
-                put_text_hud(frame, f"{current_pred_confidence}", 20, h - 50, scale=0.6, color=(200, 200, 200))
             
             if progress_val > 0 and progress_val < 1.0:
                 put_progress_bar(frame, 20, h - 35, 200, 15, progress_val, color=draw_color)
             elif progress_val >= 1.0:
                 put_text_hud(frame, "HOLD EXECUTING...", 20, h - 20, scale=0.6, color=(0, 255, 0))
+            elif progress_val == 0:
+                put_text_hud(frame, "[Z] Toggle Lock  [Q] Quit", 20, h - 20, scale=0.5, color=(180, 180, 180))
 
-            put_text_hud(frame, f"FPS: {int(fps)}", w - 70, 30, scale=0.4, color=(150, 150, 150))
+            # HUD Right Side Info
+            put_text_hud(frame, f"FPS: {int(fps)}", w - 160, 30, scale=0.6, color=(255, 255, 255))
             eyes_color = (0, 255, 0) if eyes_msg == "Open" else (0, 0, 255)
-            put_text_hud(frame, f"EYES: {eyes_msg}", w - 120, 50, scale=0.4, color=eyes_color)
-            put_text_hud(frame, "[Z] Lock/Unlock | [Q] Quit", w - 240, h - 20, scale=0.5, color=(180, 180, 180))
+            put_text_hud(frame, f"EYES: {eyes_msg}", w - 160, 60, scale=0.6, color=eyes_color)
+            
+            # Key Mappings HUD
+            put_text_hud(frame, "MAPPINGS:", w - 180, 100, scale=0.5, color=(200, 200, 200))
+            m_y_offset = 125
+            for g_name, k in cfg.actions.items():
+                lbl = g_name.replace("_", " ").title()
+                put_text_hud(frame, f"{lbl} -> '{k}'", w - 180, m_y_offset, scale=0.45, color=GESTURE_COLORS.get(g_name, (200, 200, 200)), thickness=1)
+                m_y_offset += 25
 
             cv2.imshow("Gesture Control Demo (Final)", frame)
 
@@ -562,7 +585,6 @@ def main():
                     status_msg = "LOCKED"
                     action_msg = "None"
                 else:
-                    last_hand_seen_time = time.time()
                     last_eyes_open_time = time.time()
                     auto_pause_fired = False
 
