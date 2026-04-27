@@ -584,9 +584,16 @@ def main():
                 if is_locked:
                     status_msg = "LOCKED"
                     action_msg = "None"
+                    override_status_msg = "LOCKED - gestures disabled"
                 else:
+<<<<<<< Updated upstream
+=======
+                    status_msg = "READY"
+                    override_status_msg = "UNLOCKED - gestures enabled"
+>>>>>>> Stashed changes
                     last_eyes_open_time = time.time()
                     auto_pause_fired = False
+                last_status_override_time = time.time()
 
     if 'cap' in locals() and cap.isOpened():
         cap.release()
